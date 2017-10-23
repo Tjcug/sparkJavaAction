@@ -31,7 +31,7 @@ public class CoalesceOperator {
 
         JavaRDD<String> staffRDD = sc.parallelize(staffList,6);
 
-        JavaRDD<String> coalesceRDD = staffRDD.coalesce(3);
+        JavaRDD<String> coalesceRDD = staffRDD.coalesce(3,true);//指定boolean进行强制进行shuffule
         JavaRDD<String> resultRDD = coalesceRDD.mapPartitionsWithIndex(new Function2<Integer, Iterator<String>, Iterator<String>>() {
             @Override
             public Iterator<String> call(Integer index, Iterator<String> v2) throws Exception {
