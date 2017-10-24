@@ -11,23 +11,19 @@ import org.apache.spark.api.java.function.VoidFunction;
 import scala.Tuple2;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * locate com.basic.spark
- * Created by 79875 on 2017/10/23.
- * Spark 实现WordCount程序
+ * Created by 79875 on 2017/10/24.
  */
-public class WordCount {
+public class TextFileWordCount {
     public static void main(String[] args) {
-        SparkConf conf=new SparkConf().setAppName("WordCount")
+        SparkConf conf=new SparkConf().setAppName("TextFileWordCount")
                 .setMaster("local");
         JavaSparkContext sc=new JavaSparkContext(conf);
 
-        List<String> names= Arrays.asList("tanjie is a good gay","zhangfan is a good gay","lincangfu is a good gay","tanjie","lincangfu");
-        JavaRDD<String> nameRDD=sc.parallelize(names);
-
-        JavaRDD<String> wordsRDD = nameRDD.flatMap(new FlatMapFunction<String, String>() {
+        JavaRDD<String> textFileRDD = sc.textFile("hdfs://root2:9000/user/79875/seqFile.seq");
+        JavaRDD<String> wordsRDD = textFileRDD.flatMap(new FlatMapFunction<String, String>() {
             @Override
             public Iterable<String> call(String s) throws Exception {
                 String[] split = s.split(" ");

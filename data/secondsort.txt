@@ -1,0 +1,7 @@
+100 tanjie 99
+100 zhangfan 20
+99 annie 111
+99 april 101
+10 liangyongqi 1
+10 wangfei 100
+10 tangyan 99

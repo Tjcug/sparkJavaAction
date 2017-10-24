@@ -1,0 +1,9 @@
+guangzhou 100
+guangzhou 90
+guangzhou 180
+beijing 101
+beijing 199
+beijing 188
+shanghai 102
+shanghai 192
+shanghai 77
