@@ -4,18 +4,18 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
-import org.apache.spark.api.java.function.VoidFunction;
 
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * locate com.basic.spark.operator
- * Created by 79875 on 2017/10/23.
- * RDD Map操作算子
- * 不是shuffle算子
+ * Created by 79875 on 2017/10/24.
+ * RDD SaveAsTextFile操作算子
+ * 可以存储到本地文件中 可以存储到HDFDS中
+ * Action操作
  */
-public class MapOperator {
+public class SaveAsTextFileOperator {
     public static void main(String[] args) {
         SparkConf conf=new SparkConf().setAppName("MapOperator")
                 .setMaster("local");
@@ -33,13 +33,7 @@ public class MapOperator {
             }
         });
 
-        mapRDD.foreach(new VoidFunction<Integer>() {
-            @Override
-            public void call(Integer integer) throws Exception {
-                System.out.println(integer);
-            }
-        });
-
+        mapRDD.saveAsTextFile("hdfs://root2:9000/user/79875/saveAsTextFile");
         sc.close();
     }
 }

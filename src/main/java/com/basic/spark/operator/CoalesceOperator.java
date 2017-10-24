@@ -14,11 +14,13 @@ import java.util.List;
  * locate com.basic.spark.operator
  * Created by 79875 on 2017/10/23.
  * RDD Coalesce操作算子
+ * 默认不是shuffle算子
  */
 public class CoalesceOperator {
     public static void main(String[] args) {
-        SparkConf conf=new SparkConf().setAppName("Coalescec操作算子")
+        SparkConf conf=new SparkConf().setAppName("CoalescecOperator")
                 .setMaster("local[2]");
+        conf.set("spark.default.parallelism","2");//项目中一般设置默认并行度
         JavaSparkContext sc=new JavaSparkContext(conf);
 
         //coalesce算子，功能是将parition的数量缩减，减少！！！
@@ -31,7 +33,8 @@ public class CoalesceOperator {
 
         JavaRDD<String> staffRDD = sc.parallelize(staffList,6);
 
-        JavaRDD<String> coalesceRDD = staffRDD.coalesce(3,true);//指定boolean进行强制进行shuffule
+        JavaRDD<String> coalesceRDD = staffRDD.coalesce(3);
+        //staffRDD.coalesce(12,true);//指定boolean进行强制进行shuffule,可以增加分区个数
         JavaRDD<String> resultRDD = coalesceRDD.mapPartitionsWithIndex(new Function2<Integer, Iterator<String>, Iterator<String>>() {
             @Override
             public Iterator<String> call(Integer index, Iterator<String> v2) throws Exception {

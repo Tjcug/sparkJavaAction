@@ -12,11 +12,13 @@ import java.util.*;
  * locate com.basic.spark.operator
  * Created by 79875 on 2017/10/23.
  * RDD MapPartition操作算子
+ * 不是shuffle算子
  */
 public class MapPartitionOperator {
     public static void main(String[] args) {
         SparkConf conf=new SparkConf().setAppName("MapPartitionOperator")
-                .setMaster("local");
+                .setMaster("local[2]");
+        conf.set("spark.default.parallelism","2");//项目中一般设置默认并行度 shuffle操作算子后生成的RDD默认分区个数
         JavaSparkContext sc=new JavaSparkContext(conf);
 
         //准备一下数据

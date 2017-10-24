@@ -14,11 +14,13 @@ import java.util.List;
  * locate com.basic.spark.operator
  * Created by 79875 on 2017/10/23.
  * RDD Repartition操作算子
+ * shuffle算子
  */
 public class RepartitionOperator {
     public static void main(String[] args) {
         SparkConf conf=new SparkConf().setAppName("RepartitionOperator")
                 .setMaster("local[2]");
+        conf.set("spark.default.parallelism","2");//项目中一般设置默认并行度 shuffle操作算子后生成的RDD默认分区个数
         JavaSparkContext sc=new JavaSparkContext(conf);
 
         //repartition算子，用于任意将RDD的partition增多或者减少

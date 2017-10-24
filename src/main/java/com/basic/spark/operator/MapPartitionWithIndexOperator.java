@@ -15,12 +15,13 @@ import java.util.List;
  * locate com.basic.spark.operator
  * Created by 79875 on 2017/10/23.
  * RDD MapPartitionWithIndex操作算子
+ * 不是shuffle算子
  */
 public class MapPartitionWithIndexOperator {
     public static void main(String[] args) {
         SparkConf conf=new SparkConf().setAppName("MapPartitionWithIndexOperator")
                 .setMaster("local[2]");
-        conf.set("spark.default.parallelism","3");
+        conf.set("spark.default.parallelism","2");
         JavaSparkContext sc=new JavaSparkContext(conf);
 
         //准备一下数据
