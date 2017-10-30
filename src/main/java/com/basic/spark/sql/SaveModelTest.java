@@ -9,6 +9,7 @@ import org.apache.spark.sql.SaveMode;
 /**
  * locate com.basic.spark.sql
  * Created by 79875 on 2017/10/30.
+ * SparkSQL Save模型
  */
 public class SaveModelTest {
     public static void main(String[] args) {

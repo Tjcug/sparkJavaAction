@@ -20,6 +20,7 @@ import java.util.List;
 /**
  * locate com.basic.spark.sql
  * Created by 79875 on 2017/10/30.
+ * RDD 转换为DataFrame 动态转换
  */
 public class RDDToDataFrameDynamic {
     public static void main(String[] args) {
