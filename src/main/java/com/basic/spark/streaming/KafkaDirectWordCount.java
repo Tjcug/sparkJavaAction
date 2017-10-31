@@ -32,14 +32,12 @@ public class KafkaDirectWordCount {
                 .setMaster("local[2]");
         JavaStreamingContext jsc=new JavaStreamingContext(conf, Durations.seconds(1));
         Map<String,String> kafkaParams=new HashMap<>();
-        //key为kafka topic
-        //value为Recevier读取数据线程个数
+        //kafka ConsumerParams kafkaConsumer消费者参数
         kafkaParams.put("metadata.broker.list","root8:9092,root9:9092,root10:9092");
         kafkaParams.put("auto.offset.reset","smallest");
 
         Set<String> topics=new HashSet<>();
-        //key为kafka topic
-        //value为Recevier读取数据线程个数
+        //配置kafka topic
         topics.add("tweetswordtopic3");
         JavaPairInputDStream<String, String> lines = KafkaUtils.createDirectStream(
                 jsc,

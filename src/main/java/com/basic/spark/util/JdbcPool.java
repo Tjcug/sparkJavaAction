@@ -1,4 +1,4 @@
-package com.basic.spark.sql;
+package com.basic.spark.util;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 

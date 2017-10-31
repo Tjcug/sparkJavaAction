@@ -42,7 +42,7 @@ public class WindowBasedWordCount {
         JavaPairDStream<String, Integer> wordCountRDD = pariRDD.reduceByKeyAndWindow(new Function2<Integer, Integer, Integer>() {
             @Override
             public Integer call(Integer v1, Integer v2) throws Exception {
-                return null;
+                return v1+v2;
             }
         }, Durations.seconds(60), Durations.seconds(10));
 
@@ -52,7 +52,7 @@ public class WindowBasedWordCount {
 //        JavaPairDStream<String, Integer> wordCountRDD = pariRDD.reduceByKeyAndWindow(new Function2<Integer, Integer, Integer>() {
 //            @Override
 //            public Integer call(Integer v1, Integer v2) throws Exception {
-//                return null;
+//                return v1+v2;
 //            }
 //        }, new Function2<Integer, Integer, Integer>() {
 //            @Override

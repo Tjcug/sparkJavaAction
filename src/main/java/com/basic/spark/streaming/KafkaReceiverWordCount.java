@@ -1,9 +1,11 @@
 package com.basic.spark.streaming;
 
+import kafka.serializer.StringDecoder;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
+import org.apache.spark.storage.StorageLevel;
 import org.apache.spark.streaming.Durations;
 import org.apache.spark.streaming.api.java.JavaDStream;
 import org.apache.spark.streaming.api.java.JavaPairDStream;
@@ -22,21 +24,27 @@ import java.util.Map;
  */
 public class KafkaReceiverWordCount {
     public static void main(String[] args) {
-        SparkConf conf=new SparkConf().setAppName("KafkaReceiverWordCount")
-                .setMaster("local[2]");
+        SparkConf conf=new SparkConf().setAppName("KafkaReceiverWordCount1")
+                .setMaster("local[5]");
         JavaStreamingContext jsc=new JavaStreamingContext(conf, Durations.seconds(5));
 
         //kafkaConsumerParams kafkaConsumer消费者参数
-        Map<String,Integer> kafkaParams=new HashMap<>();
+        Map<String,Integer> topics=new HashMap<>();
         //key为kafka topic
         //value为Recevier读取数据线程个数
-        kafkaParams.put("tweetswordtopic3",2);
-        String zkList="root2:2181,root4:2181,root5:2181";
+        topics.put("tweetswordtopic3",2);
+
+        Map<String,String> kafkaParams=new HashMap<>();
+        //kafka ConsumerParams kafkaConsumer消费者参数
+        kafkaParams.put("auto.offset.reset","smallest");
+        kafkaParams.put("zookeeper.connect","root2:2181,root4:2181,root5:2181");
+        kafkaParams.put("group.id","WrodCountConsumerGroup10");
+        kafkaParams.put("zookeeper.connection.timeout.ms","10000");
 
         //JavaPairReceiverInputDStream<String, String>
         //key为record的偏移量
         //value为record的数据
-        JavaPairReceiverInputDStream<String, String> lines = KafkaUtils.createStream(jsc, zkList, "WrodCountConsumerGroup1", kafkaParams);
+        JavaPairReceiverInputDStream<String, String> lines = KafkaUtils.createStream(jsc,String.class,String.class, StringDecoder.class,StringDecoder.class, kafkaParams, topics, StorageLevel.MEMORY_AND_DISK_SER_2());
         JavaDStream<String> wordsRDD = lines.flatMap(new FlatMapFunction<Tuple2<String, String>, String>() {
             @Override
             public Iterable<String> call(Tuple2<String, String> stringStringTuple2) throws Exception {

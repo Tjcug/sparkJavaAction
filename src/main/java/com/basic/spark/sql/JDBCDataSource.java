@@ -1,5 +1,6 @@
 package com.basic.spark.sql;
 
+import com.basic.spark.util.JdbcPool;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -86,7 +87,7 @@ public class JDBCDataSource {
         dataFrame.toJavaRDD().foreach(new VoidFunction<Row>() {
             @Override
             public void call(Row row) throws Exception {
-                Connection conn=JdbcPool.getConnection();
+                Connection conn= JdbcPool.getConnection();
                 PreparedStatement preparedStatement;
                 String sql = "INSERT INTO goodstudent(name,age,score)"
                         + " VALUES (?,?,?)";  // 插入数据的sql语句

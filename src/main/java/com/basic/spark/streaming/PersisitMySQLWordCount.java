@@ -1,6 +1,6 @@
 package com.basic.spark.streaming;
 
-import com.basic.spark.sql.JdbcPool;
+import com.basic.spark.util.JdbcPool;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.FlatMapFunction;
