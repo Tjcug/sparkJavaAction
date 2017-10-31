@@ -96,6 +96,12 @@
           <artifactId>c3p0</artifactId>
           <version>0.9.1.2</version>
       </dependency>
+
+      <dependency>
+          <groupId>org.apache.spark</groupId>
+          <artifactId>spark-streaming-kafka_2.10</artifactId>
+          <version>${spark.version}</version>
+      </dependency>
   </dependencies>
 
     <build>
