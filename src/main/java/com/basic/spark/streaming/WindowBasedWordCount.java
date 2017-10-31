@@ -1,7 +1,6 @@
 package com.basic.spark.streaming;
 
 import org.apache.spark.SparkConf;
-import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
@@ -20,7 +19,6 @@ public class WindowBasedWordCount {
     public static void main(String[] args) {
         SparkConf conf=new SparkConf().setAppName("TransformOperator")
                 .setMaster("local[2]");
-        JavaSparkContext sc=new JavaSparkContext(conf);
         JavaStreamingContext jsc=new JavaStreamingContext(conf, Durations.seconds(5));
 
         //这里叫log日志

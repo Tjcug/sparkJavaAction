@@ -2,7 +2,6 @@ package com.basic.spark.streaming;
 
 import com.google.common.base.Optional;
 import org.apache.spark.SparkConf;
-import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
@@ -26,7 +25,6 @@ public class UpdateStateByWordCount {
     public static void main(String[] args) {
         SparkConf conf=new SparkConf().setAppName("StreamingWordCount")
                 .setMaster("local[2]");
-        JavaSparkContext sc=new JavaSparkContext(conf);
         JavaStreamingContext jsc=new JavaStreamingContext(conf, Durations.seconds(1));
         //对于状态Stateful进行checkpoints
         jsc.checkpoint("hdfs://root2:9000/user/79875/sparkcheckpoint");

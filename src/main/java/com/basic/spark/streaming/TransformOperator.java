@@ -4,7 +4,6 @@ import com.google.common.base.Optional;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.PairFunction;
 import org.apache.spark.streaming.Durations;
@@ -27,7 +26,6 @@ public class TransformOperator {
     public static void main(String[] args) {
         SparkConf conf=new SparkConf().setAppName("TransformOperator")
                 .setMaster("local[2]");
-        JavaSparkContext sc=new JavaSparkContext(conf);
         JavaStreamingContext jsc=new JavaStreamingContext(conf, Durations.seconds(1));
 
         /**
@@ -37,7 +35,7 @@ public class TransformOperator {
         List<Tuple2<String,Boolean>> blackList=new ArrayList<>();
         blackList.add(new Tuple2<String, Boolean>("tanjie",true));
         blackList.add(new Tuple2<String, Boolean>("zhangfan",false));
-        final JavaPairRDD<String, Boolean> blackRDD = sc.parallelizePairs(blackList);
+        final JavaPairRDD<String, Boolean> blackRDD = jsc.sc().parallelizePairs(blackList);
 
         //time adID name
         JavaReceiverInputDStream<String> adsClickLogDStream = jsc.socketTextStream("root2", 8888);

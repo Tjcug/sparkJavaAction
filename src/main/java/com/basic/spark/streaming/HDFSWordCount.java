@@ -23,7 +23,7 @@ public class HDFSWordCount {
          * 该对象除了接受SparkConf对象，还接受一个BtachInterval参数，就是说，每收集多长时间的数据划分为一个Batch即RDD去执行
          * 这里Durations可以指定分钟，毫秒，秒
          */
-        SparkConf conf=new SparkConf().setAppName("StreamingWordCount")
+        SparkConf conf=new SparkConf().setAppName("HDFSWordCount")
                 .setMaster("local[2]");
         JavaStreamingContext jsc=new JavaStreamingContext(conf, Durations.seconds(5));
 
